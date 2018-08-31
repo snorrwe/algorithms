@@ -17,7 +17,7 @@ void expect_ordered(T const& v)
 
 TEST(MergeSort, Easy)
 {
-    std::vector v { 2, 1, 3 };
+    std::vector<int> v { 2, 1, 3 };
     merge_sort::sort(v.begin(), v.end());
 
     expect_ordered(v);
@@ -25,7 +25,7 @@ TEST(MergeSort, Easy)
 
 TEST(MergeSort, AlreadySorted)
 {
-    std::vector v { 1, 2, 3 };
+    std::vector<int> v { 1, 2, 3 };
     merge_sort::sort(v.begin(), v.end());
 
     expect_ordered(v);
@@ -33,7 +33,7 @@ TEST(MergeSort, AlreadySorted)
 
 TEST(MergeSort, InReverseOrder)
 {
-    std::vector v { 3, 2, 1 };
+    std::vector<int> v { 3, 2, 1 };
     merge_sort::sort(v.begin(), v.end());
 
     expect_ordered(v);
@@ -41,7 +41,7 @@ TEST(MergeSort, InReverseOrder)
 
 TEST(MergeSort, SingleItem)
 {
-    std::vector v { 1 };
+    std::vector<int> v { 1 };
     merge_sort::sort(v.begin(), v.end());
 
     expect_ordered(v);
@@ -49,7 +49,7 @@ TEST(MergeSort, SingleItem)
 
 TEST(MergeSort, HomogenousRange)
 {
-    std::vector v { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    std::vector<int> v { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
     merge_sort::sort(v.begin(), v.end());
 
@@ -58,7 +58,7 @@ TEST(MergeSort, HomogenousRange)
 
 TEST(MergeSort, LongRandoms)
 {
-    std::vector v {
+    std::vector<int> v {
         629, 887, 275, 967, 727, 303, 942, 586, 522, 327, 315, 587, 219, 724,
         460, 834, 540, 890, 719, 830, 796, 428, 696, 953, 194, 693, 441, 493,
         237, 901, 338, 984, 700, 316, 329, 767, 548, 591, 984, 752, 295, 518,
@@ -114,7 +114,7 @@ TEST(MergeSort, CustomType)
         }
     };
 
-    std::vector v {
+    std::vector<MyType> v {
         MyType { 1 },
         MyType { 551 },
         MyType { 764 },
