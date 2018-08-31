@@ -5,21 +5,21 @@
 
 namespace merge_sort {
 
-template <typename T, typename It>
+template <typename It>
 class MergeSortImpl;
 
 template <typename It>
 void sort(It begin, It end)
 {
     using category = typename std::iterator_traits<It>::iterator_category;
-    using value_type = typename std::iterator_traits<It>::value_type;
-    auto sorter = MergeSortImpl<value_type, It> { begin, end, category() };
+    auto sorter = MergeSortImpl<It> { begin, end, category() };
     sorter.sort();
 }
 
-template <typename T, typename It>
+template <typename It>
 class MergeSortImpl {
-    using Container = std::vector<T>;
+    using TValue = typename std::iterator_traits<It>::value_type;
+    using Container = std::vector<TValue>;
 
     It begin;
     It end;
@@ -35,13 +35,17 @@ public:
 
     void sort()
     {
-        auto size = end - begin;
-        A.reserve(size);
-        std::copy(begin, end, std::back_inserter(A));
-        B.reserve(size);
-        std::copy(begin, end, std::back_inserter(B));
+        const auto size = end - begin;
 
-        top_down_split_merge(B, 0, size - 1, A);
+        auto init = [&](auto& container) {
+            container.reserve(size);
+            std::copy(begin, end, std::back_inserter(container));
+        };
+
+        init(A);
+        init(B);
+
+        top_down_split_merge(B, 0, size, A);
 
         // Copy the result back to the original range
         std::copy(A.begin(), A.end(), begin);
@@ -54,7 +58,7 @@ private:
         if (end - begin < 2)
             return;
 
-        auto mid = (end - begin) / 2;
+        auto mid = (end + begin) / 2;
 
         top_down_split_merge(A, begin, mid, B);
         top_down_split_merge(A, mid, end, B);
@@ -65,12 +69,12 @@ private:
     static void merge(Container& A, size_t begin, size_t mid, size_t end, Container& B)
     {
         auto i = begin, j = mid;
-        for (; begin != end; ++begin) {
-            if (begin <= mid && (j >= end || A[i] <= A[j])) {
-                A[begin] = B[i];
+        for (; begin < end; ++begin) {
+            if (i < mid && (j >= end || A[i] <= A[j])) {
+                B[begin] = A[i];
                 ++i;
             } else {
-                A[begin] = B[j];
+                B[begin] = A[j];
                 ++j;
             }
         }
