@@ -21,6 +21,8 @@ void top_down_split_merge(It B, size_t begin, size_t end, It A);
 template <typename It>
 void merge(It A, size_t begin, size_t mid, size_t end, It B);
 
+/************************* Implementation *************************/
+
 template <typename It>
 void sort(It begin, It end) {
     using category = typename std::iterator_traits<It>::iterator_category;
@@ -30,8 +32,8 @@ void sort(It begin, It end) {
 template <typename It>
 void sort_impl(It begin, It end, std::random_access_iterator_tag) {
     using TValue = typename std::iterator_traits<It>::value_type;
-    const auto size = end - begin;
 
+    const auto size = end - begin;
     std::vector<TValue> working_container;
     working_container.reserve(size);
     std::copy(begin, end, std::back_inserter(working_container));
@@ -48,9 +50,11 @@ void top_down_split_merge(It B, size_t begin, size_t end, It A) {
 
     auto mid = (end + begin) / 2;
 
+    // Swap buffers
     top_down_split_merge(A, begin, mid, B);
     top_down_split_merge(A, mid, end, B);
 
+    // Merge in the original order
     merge(B, begin, mid, end, A);
 }
 
