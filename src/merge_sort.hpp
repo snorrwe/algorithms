@@ -62,8 +62,7 @@ void top_down_split_merge(It B, size_t begin, size_t end, It A) {
 
 template <typename It>
 void merge(It A, size_t begin, size_t mid, size_t end, It B) {
-    auto i = begin, j = mid;
-    for (; begin < end; ++begin) {
+    for (auto i = begin, j = mid; begin < end; ++begin) {
         if (i < mid && (j >= end || *(A + i) <= *(A + j))) {
             *(B + begin) = *(A + i);
             ++i;
