@@ -6,9 +6,10 @@
 namespace merge_sort {
 
 /**
- * Sort a range via the merge sort algorithm,
+ * Sort a range via the Merge sort algorithm,
  * `It` has to be a random access iterator
  * For the algorithm used see https://en.wikipedia.org/wiki/Merge_sort
+ * The algorithm's memory complexity is O(2n) where n := length of the input
  */
 template <typename It>
 void sort(It begin, It end);
