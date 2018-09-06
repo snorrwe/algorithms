@@ -6,8 +6,9 @@
 namespace merge_sort {
 
 /**
- * Sort a range via the merge sort algorithm, It needs to be a random access
- * iterator
+ * Sort a range via the merge sort algorithm,
+ * `It` has to be a random access iterator
+ * For the algorithm used see https://en.wikipedia.org/wiki/Merge_sort
  */
 template <typename It>
 void sort(It begin, It end);
