@@ -7,8 +7,7 @@ namespace merge_sort {
 
 /**
  * Sort a range via the Merge sort algorithm,
- * # TODO check if forward iterator suffices( it should )
- * `It` has to be a random access iterator 
+ * `It` has to be a random access iterator
  * For the algorithm used see https://en.wikipedia.org/wiki/Merge_sort
  * The algorithm's memory complexity is O(2n) where n := length of the input
  */
@@ -46,8 +45,8 @@ void sort_impl(It begin, It end, std::random_access_iterator_tag) {
 
 template <typename It>
 void top_down_split_merge(It B, size_t begin, size_t end, It A) {
+    // If length is less than 2 consider the range sorted
     if (end - begin < 2) {
-        // If length is less than 2 consider the range sorted
         return;
     }
 
