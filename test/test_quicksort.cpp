@@ -1,6 +1,6 @@
 #include <vector>
 #include "gtest/gtest.h"
-#include "merge_sort.hpp"
+#include "quicksort.hpp"
 
 namespace {
 
@@ -14,43 +14,43 @@ void expect_ordered(T const& v) {
     }
 }
 
-TEST(MergeSort, Easy) {
+TEST(Quicksort, Easy) {
     std::vector<int> v{2, 1, 3};
-    merge_sort::sort(v.begin(), v.end());
+    quicksort::sort(v.begin(), v.end());
 
     expect_ordered(v);
 }
 
-TEST(MergeSort, AlreadySorted) {
+TEST(Quicksort, AlreadySorted) {
     std::vector<int> v{1, 2, 3};
-    merge_sort::sort(v.begin(), v.end());
+    quicksort::sort(v.begin(), v.end());
 
     expect_ordered(v);
 }
 
-TEST(MergeSort, InReverseOrder) {
+TEST(Quicksort, InReverseOrder) {
     std::vector<int> v{3, 2, 1};
-    merge_sort::sort(v.begin(), v.end());
+    quicksort::sort(v.begin(), v.end());
 
     expect_ordered(v);
 }
 
-TEST(MergeSort, SingleItem) {
+TEST(Quicksort, SingleItem) {
     std::vector<int> v{1};
-    merge_sort::sort(v.begin(), v.end());
+    quicksort::sort(v.begin(), v.end());
 
     expect_ordered(v);
 }
 
-TEST(MergeSort, HomogenousRange) {
+TEST(Quicksort, HomogenousRange) {
     std::vector<int> v{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-    merge_sort::sort(v.begin(), v.end());
+    quicksort::sort(v.begin(), v.end());
 
     expect_ordered(v);
 }
 
-TEST(MergeSort, LongRandoms) {
+TEST(Quicksort, LongRandoms) {
     std::vector<int> v{
         629, 887, 275, 967, 727, 303, 942, 586, 522, 327, 315, 587, 219, 724,
         460, 834, 540, 890, 719, 830, 796, 428, 696, 953, 194, 693, 441, 493,
@@ -91,15 +91,18 @@ TEST(MergeSort, LongRandoms) {
         551, 764, 191, 498, 525, 221, 157, 254, 992, 581
 
     };
-    merge_sort::sort(v.begin(), v.end());
+    quicksort::sort(v.begin(), v.end());
 
     expect_ordered(v);
 }
 
-TEST(MergeSort, CustomType) {
+TEST(Quicksort, CustomType) {
     struct MyType {
         int value;
 
+        bool operator<(MyType const& other) const {
+            return value < other.value;
+        }
         bool operator<=(MyType const& other) const {
             return value <= other.value;
         }
@@ -111,7 +114,7 @@ TEST(MergeSort, CustomType) {
         MyType{254}, MyType{992}, MyType{581},
     };
 
-    merge_sort::sort(v.begin(), v.end());
+    quicksort::sort(v.begin(), v.end());
 
     expect_ordered(v);
 }
